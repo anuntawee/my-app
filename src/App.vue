@@ -16,8 +16,9 @@
   
     <p>ที่อยู่ <span v-html="address"></span></p>
     <a :href="social">facebook</a>
-    <p>งานอดิเรก</p> <!-- เรียกใช้งาน array -->
-    <!-- <ul>
+    <p>งานอดิเรก</p> 
+    เรียกใช้งาน array
+    <ul>
       <li>{{hobby[0]}}</li>
       <li>{{hobby[1]}}</li>
       <li>{{hobby[2]}}</li>
@@ -29,7 +30,7 @@
       <li> น้ำหนัก {{general.weight}}</li>
       <li> ส่วนสูง {{general.height}}</li>
       <li> โรคประจำตัว {{general.status}}</li>
-    </ul> -->
+    </ul>
 
     <button v-on:click="showdata">คลิกเพื่อดูข้อมูล</button>
     <button @click="showdata">คลิกเพื่อดูข้อมูล</button> <!--เขียนได้ สองแบบ-->
