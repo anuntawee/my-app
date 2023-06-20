@@ -13,7 +13,7 @@
      <h1>ชื่อ-นามสกุล ผู้สมัครงาน : {{getFullname()}}</h1>
     <h1>ชื่อเล่น : {{nickname}}</h1>
      <h1>{{age}}</h1>
-    <!-- <h1>{{800+200}}</h1> -->
+  
     <p>ที่อยู่ <span v-html="address"></span></p>
     <a :href="social">facebook</a>
     <p>งานอดิเรก</p> <!-- เรียกใช้งาน array -->
