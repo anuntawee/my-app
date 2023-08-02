@@ -1,26 +1,31 @@
-name: Build on Tag
-on:
-  push:
-    tags:
-      - 'v1.00' # เลือกเฉพาะ tags ที่เริ่มต้นด้วย 'v1.'
-      - 'v2.00' # เลือกเฉพาะ tags ที่เริ่มต้นด้วย 'v2.'
+name: CI
 
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: environment
+        description: Select the environment
+      boolean:
+        type: boolean
+        description: True or False
+      choice:
+        type: choice
+        description: Make a choice
+        options:
+        - foo
+        - bar
+        - baz
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Build and Deploy
-      if: startsWith(github.ref, 'refs/tags/v1.00')
-      run: |
-        # คำสั่งสำหรับ build และ deploy เวอร์ชัน v1
-        echo "Building and deploying v1"
-      
-    - name: Test v2
-      if: startsWith(github.ref, 'refs/tags/v2.00')
-      run: |
-        # คำสั่งทดสอบสำหรับเวอร์ชัน v2
-        echo "Testing v2"
+      - name: greet
+        run: | 
+          echo "environment is ${{ github.event.inputs.environment }} / ${{ inputs.environment }}"
+          echo "boolean is ${{ github.event.inputs.boolean }}" / ${{ inputs.boolean }} 
+          echo "choice is ${{ github.event.inputs.choice }}" / ${{ inputs.choice }}
+          
