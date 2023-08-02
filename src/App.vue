@@ -25,12 +25,12 @@
       <li>{{hobby[3]}}</li>
     </ul>
     <p>ข้อมูลพื้นฐาน</p>
-    <ul>
+    <!-- <ul>
       <li> เพศ {{general.gender}}</li>
       <li> น้ำหนัก {{general.weight}}</li>
       <li> ส่วนสูง {{general.height}}</li>
       <li> โรคประจำตัว {{general.status}}</li>
-    </ul>
+    </ul> -->
 
     <button v-on:click="showdata">คลิกเพื่อดูข้อมูล</button>
     <button @click="showdata">คลิกเพื่อดูข้อมูล</button> <!--เขียนได้ สองแบบ-->
