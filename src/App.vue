@@ -17,7 +17,7 @@
     <p>ที่อยู่ <span v-html="address"></span></p>
     <a :href="social">facebook</a>
     <p>งานอดิเรก</p> 
-    เรียกใช้งาน array test
+    เรียกใช้งาน array test2
     <ul>
       <li>{{hobby[0]}}</li>
       <li>{{hobby[1]}}</li>
