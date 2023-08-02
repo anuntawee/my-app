@@ -2,10 +2,6 @@ name: Run on Tag Version
 
 on:
   workflow_dispatch:
-    inputs:
-      selected_tag:
-        description: 'Select a tag version'
-        required: true
 
 jobs:
   build:
