@@ -2,11 +2,7 @@ name: Get Tags from GitHub API
 
 on:
   workflow_dispatch:
-    inputs:
-      selected_tag:
-        description: 'Select a tag version'
-        required: true
-
+ 
 jobs:
   get_tags:
     runs-on: ubuntu-latest
