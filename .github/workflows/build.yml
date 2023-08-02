@@ -1,21 +1,36 @@
-name: Get Tags from GitHub API
+name: CI
 
 on:
   workflow_dispatch:
- 
+    inputs:
+      environment:
+        type: environment
+        description: Select the environment
+      boolean:
+        type: boolean
+        description: True or False
+
 jobs:
-  get_tags:
+  build:
     runs-on: ubuntu-latest
-
-    # steps:
-    # - name: Get Tags from GitHub API
-    #   id: get_tags
-    #   run: |
-    #     REPO_OWNER=anuntawee
-    #     REPO_NAME=my-app
-    #     TAGS=$(curl -s -H  "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/tags" | jq -r '.[].name')
-    #     echo "TAGS=${TAGS}" >> $GITHUB_ENV
-
-    # - name: Display Tags
-    #   run: |
-    #     echo "Tags from GitHub API: $TAGS"
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    
+    - name: greet
+      run: | 
+        echo "environment is ${{ github.event.inputs.environment }} / ${{ inputs.environment }}"
+        echo "boolean is ${{ github.event.inputs.boolean }}" / ${{ inputs.boolean }} 
+        echo "choice is ${{ github.event.inputs.selected_tag }}" / ${{ inputs.choice }}
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'  # เลือกเวอร์ชัน Node.js ที่คุณใช้งาน
+        
+    - name: Install Dependencies
+      run: npm install
+      
+    - name: Build Vue.js App
+      run: npm run build
