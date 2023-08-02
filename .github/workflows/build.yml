@@ -1,4 +1,4 @@
-name: Run on Tag Version
+name: Get Tags from GitHub API
 
 on:
   workflow_dispatch:
@@ -8,7 +8,7 @@ on:
         required: true
 
 jobs:
-  build:
+  get_tags:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,45 +16,10 @@ jobs:
       id: get_tags
       run: |
         REPO_OWNER=anuntawee
-        REPO_NAME=myapp
+        REPO_NAME=my-app
         TAGS=$(curl -s -H  "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/tags" | jq -r '.[].name')
-        echo "Tags from API: $TAGS"
-        echo "::set-output name=tags::$TAGS"
+        echo "TAGS=${TAGS}" >> $GITHUB_ENV
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.x
-
-    - name: Install dependencies
+    - name: Display Tags
       run: |
-        python -m pip install --upgrade pip
-        pip install requests
-
-    - name: Display Available Tags
-      run: |
-        TAGS=${{ steps.get_tags.outputs.tags }}
-        echo "Available tags: $TAGS"
-
-    - name: Generate HTML Form
-      id: generate_form
-      run: |
-        TAGS=${{ steps.get_tags.outputs.tags }}
-        OPTIONS=""
-        for tag in $TAGS; do
-          OPTIONS="$OPTIONS<option value='$tag'>$tag</option>"
-        done
-        echo "::set-output name=options::$OPTIONS"
-
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Build and Deploy
-      run: |
-        TAGS=${{ steps.get_tags.outputs.tags }}
-        echo "Available tags: $TAGS"
-
-        # ดึง "tag version" ที่ผู้ใช้เลือก
-        SELECTED_TAG=${{ github.event.inputs.selected_tag }}
-
-        echo "Building and deploying for selected tag: $SELECTED_TAG"
+        echo "Tags from GitHub API: $TAGS"
