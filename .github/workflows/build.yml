@@ -3,16 +3,10 @@ name: CI
 on:
   workflow_dispatch:
     inputs:
-      environment:
-        type: environment
-        description: Select the environment
-      boolean:
-        type: boolean
-        description: True or False
       selected_tag:
         description: 'Selected tag version'
         required: true
-    
+
 jobs:
   build:
     runs-on: ubuntu-latest
