@@ -11,9 +11,7 @@ jobs:
     - name: Get Tags from GitHub API
       id: get_tags
       run: |
-        REPO_OWNER=anuntawee
-        REPO_NAME=my-app
-        TAGS=$(curl -s -H  "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/tags" | jq -r '.[].name')
+        TAGS=$(curl -s "https://api.github.com/repos/anuntawee/my-app/tags" | jq -r '.[].name')
         echo "TAGS=${TAGS}" >> $GITHUB_ENV
 
     - name: Display Tags
