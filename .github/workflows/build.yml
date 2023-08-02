@@ -4,19 +4,19 @@ on:
   workflow_dispatch:
 
 jobs:
-  # get_tags:
-  #   runs-on: ubuntu-latest
+  get_tags:
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #   - name: Get Tags from GitHub API
-  #     id: get_tags
-  #     run: |
-  #       TAGS=$(curl -s "https://api.github.com/repos/anuntawee/my-app/tags" | jq -r '.[].name')
-  #       echo "TAGS=${TAGS}" >> $GITHUB_ENV
+    steps:
+    - name: Get Tags from GitHub API
+      id: get_tags
+      run: |
+        TAGS=$(curl -s "https://api.github.com/repos/anuntawee/my-app/tags" | jq -r '.[].name')
+        echo "TAGS=${TAGS}" >> $GITHUB_ENV
 
-  #   - name: Display Tags
-  #     run: |
-  #       echo "Tags from GitHub API: $TAGS"
+    - name: Display Tags
+      run: |
+        echo "Tags from GitHub API: $TAGS"
 
   build_app:
     runs-on: ubuntu-latest
