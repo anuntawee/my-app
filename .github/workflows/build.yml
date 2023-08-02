@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main  # หรือแบรนช์ที่คุณต้องการให้ทำงาน
+    tags:
+      - 'v1.00'
 
 jobs:
   build:
