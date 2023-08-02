@@ -11,7 +11,7 @@ jobs:
     - name: Get Tags from GitHub API
       id: get_tags
       run: |
-        TAGS=$(curl -s "https://api.github.com/repos/USERNAME/REPO_NAME/tags" | jq -r '.[].name' | tr -d '[:space:]')
+        TAGS=$(curl -s "https://api.github.com/repos/anuntawee/my-app/tags" | jq -r '.[] | .name')
         echo "TAGS=${TAGS}" >> $GITHUB_ENV
 
     - name: Display Tags
@@ -26,17 +26,20 @@ jobs:
           # Perform actions with each tag version
         done
 
-  build_app:
+  build:
     runs-on: ubuntu-latest
-
+          
     steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+            
     - name: Setup Node.js
       uses: actions/setup-node@v2
       with:
         node-version: '14'  # เลือกเวอร์ชัน Node.js ที่คุณใช้งาน
-        
+              
     - name: Install Dependencies
       run: npm install
-      
+            
     - name: Build Vue.js App
       run: npm run build
