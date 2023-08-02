@@ -3,10 +3,23 @@ name: CI
 on:
   workflow_dispatch:
     inputs:
+      environment:
+        type: environment
+        description: Select the environment
+      boolean:
+        type: boolean
+        description: True or False
       selected_tag:
         description: 'Selected tag version'
         required: true
-
+        type: choice
+        default: 'v1.0.0'
+        options:  # เพิ่มรายการเลือกที่คุณต้องการ
+          - 'v1.0.0'
+          - 'v2.0.0'
+          - 'v3.0.0'
+          - 'v4.0.0'
+                  # เพิ่ม tag version อื่น ๆ ตามต้องการ
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -17,7 +30,9 @@ jobs:
     
     - name: greet
       run: | 
-        echo "Building and deploying for selected tag: ${{ github.event.inputs.selected_tag }}"
+        echo "environment is ${{ github.event.inputs.environment }} / ${{ inputs.environment }}"
+        echo "boolean is ${{ github.event.inputs.boolean }}" / ${{ inputs.boolean }} 
+        echo "choice is ${{ github.event.inputs.choice }}" / ${{ inputs.choice }}
       
     - name: Setup Node.js
       uses: actions/setup-node@v2
