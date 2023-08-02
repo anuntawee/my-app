@@ -2,6 +2,10 @@ name: Get Tags from GitHub API
 
 on:
   workflow_dispatch:
+    inputs:
+      environment:
+        type: environment
+        description: Select the environment
  
 jobs:
   get_tags:
