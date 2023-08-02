@@ -1,12 +1,5 @@
 name: Run on Tag Version
 
-on:
-  workflow_dispatch:
-    inputs:
-      selected_tag:
-        description: 'Select a tag version'
-        required: true
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -30,3 +23,10 @@ jobs:
         SELECTED_TAG=${{ github.event.inputs.selected_tag }}
 
         echo "Building and deploying for selected tag: $SELECTED_TAG"
+        
+on:
+  workflow_dispatch:
+    inputs:
+      selected_tag:
+        description: 'Select a tag version'
+        required: true
