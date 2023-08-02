@@ -15,10 +15,10 @@ jobs:
     - name: Get Tags from GitHub API
       id: get_tags
       run: |
-        sudo -i
         TAGS=$(curl -s "https://api.github.com/repos/anuntawee/my-app/tags" | jq -r '.[].name')
         echo "Tags from API: $TAGS"
         echo "::set-output name=tags::$TAGS"
+
 
     - name: Set up Python
       uses: actions/setup-python@v2
