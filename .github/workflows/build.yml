@@ -1,4 +1,4 @@
-name: Get Tags and Build Vue.js App
+name: Get Tags from GitHub API
 
 on:
   workflow_dispatch:
@@ -11,12 +11,20 @@ jobs:
     - name: Get Tags from GitHub API
       id: get_tags
       run: |
-        TAGS=$(curl -s "https://api.github.com/repos/anuntawee/my-app/tags" | jq -r '.[].name' | sed 's/ //g')
+        TAGS=$(curl -s "https://api.github.com/repos/USERNAME/REPO_NAME/tags" | jq -r '.[].name')
         echo "TAGS=${TAGS}" >> $GITHUB_ENV
 
     - name: Display Tags
       run: |
         echo "Tags from GitHub API: $TAGS"
+
+    - name: Use Tags Array
+      run: |
+        IFS=',' read -ra TAGS_ARRAY <<< "$TAGS"
+        for tag in "${TAGS_ARRAY[@]}"; do
+          echo "Processing tag: $tag"
+          # Perform actions with each tag version
+        done
 
   build_app:
     runs-on: ubuntu-latest
