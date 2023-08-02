@@ -1,24 +1,5 @@
-# my-app
+## Release Versions
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+- [Version 2.0](https://github.com/anuntawee/my-app/releases/tag/v2.00)
+- [Version 1.1](https://github.com/anuntawee/my-app/releases/tag/v1.0.1)
+- [Version 1.0](https://github.com/anuntawee/my-app/releases/tag/v1.00)
