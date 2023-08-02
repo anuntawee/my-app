@@ -1,43 +1,32 @@
-name: CI
+name: Run on Tag Version
 
 on:
   workflow_dispatch:
     inputs:
-      environment:
-        type: environment
-        description: Select the environment
-      boolean:
-        type: boolean
-        description: True or False
-     selected_tag:
+      selected_tag:
         description: 'Select a tag version'
         required: true
-        type: choice
-        default: 'v1.0.0'
-        options: |
-          $(curl -s "https://api.github.com/repos/anuntawee/my-app/tags" | jq -r '.[].name')
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - name: Checkout repository
+    - name: Get Tags from GitHub API
+      id: get_tags
+      run: |
+        TAGS=$(curl -s "https://api.github.com/repos/anuntawee/my-app/tags" | jq -r '.[].name')
+        echo "::set-output name=tags::$TAGS"
+
+    - name: Checkout code
       uses: actions/checkout@v2
-    
-    - name: greet
-      run: | 
-        echo "environment is ${{ github.event.inputs.environment }} / ${{ inputs.environment }}"
-        echo "boolean is ${{ github.event.inputs.boolean }}" / ${{ inputs.boolean }} 
-        echo "Building and deploying for selected tag: ${{ github.event.inputs.selected_tag }}" / ${{ inputs.selected_tag }}
-      
-    - name: Setup Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '14'  # เลือกเวอร์ชัน Node.js ที่คุณใช้งาน
-        
-    - name: Install Dependencies
-      run: npm install
-      
-    - name: Build Vue.js App
-      run: npm run build
+
+    - name: Build and Deploy
+      run: |
+        TAGS=${{ steps.get_tags.outputs.tags }}
+        echo "Available tags: $TAGS"
+
+        # ทำงานเพื่อดึง "tag version" ที่ผู้ใช้เลือก
+        SELECTED_TAG=${{ github.event.inputs.selected_tag }}
+
+        echo "Building and deploying for selected tag: $SELECTED_TAG"
