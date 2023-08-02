@@ -1,31 +1,27 @@
-name: CI
+name: Build and Deploy Vue.js App
 
 on:
-  workflow_dispatch:
-    inputs:
-      environment:
-        type: environment
-        description: Select the environment
-      boolean:
-        type: boolean
-        description: True or False
-      choice:
-        type: choice
-        description: Make a choice
-        options:
-        - foo
-        - bar
-        - baz
+  push:
+    branches:
+      - main  # หรือแบรนช์ที่คุณต้องการให้ทำงาน
+    tags:
+      - 'v1.00'
+
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    
     steps:
-      - uses: actions/checkout@v2
-
-      - name: greet
-        run: | 
-          echo "environment is ${{ github.event.inputs.environment }} / ${{ inputs.environment }}"
-          echo "boolean is ${{ github.event.inputs.boolean }}" / ${{ inputs.boolean }} 
-          echo "choice is ${{ github.event.inputs.choice }}" / ${{ inputs.choice }}
-          
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'  # เลือกเวอร์ชัน Node.js ที่คุณใช้งาน
+        
+    - name: Install Dependencies
+      run: npm install
+      
+    - name: Build Vue.js App
+      run: npm run build
