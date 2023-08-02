@@ -1,4 +1,4 @@
-name: GitHub API
+name: Get Tags from GitHub API
 
 on:
   workflow_dispatch:
