@@ -17,9 +17,12 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: '14'  # เลือกเวอร์ชัน Node.js ที่คุณต้องการ
+        registry-url: https://npm.pkg.github.com/
+    - run: npm ci
+    - run: npm publish
 
     - name: Install dependencies
-      run: npm install
+      run: npm install -f
 
     - name: Publish to GitHub Packages
       run: npm publish
