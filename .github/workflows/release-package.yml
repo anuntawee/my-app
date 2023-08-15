@@ -1,34 +1,40 @@
-name: Upload Vue.js Package
+name: Node.js Package
 
 on:
   push:
     branches:
       - dev  # แก้ไขชื่อ branch ตามที่คุณต้องการ
-
-env:
-  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+  release:
+    types: [created]
 
 jobs:
-  upload:
+  build:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - run: npm ci
+      - run: npm test
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '14'  # เลือกเวอร์ชัน Node.js ที่คุณต้องการ
-        registry-url: https://npm.pkg.github.com/
-    - run: npm ci
-    - run: npm publish
-
-    - name: Install dependencies
-      run: npm install -f
-
-    - name: Publish to GitHub Packages
-      run: npm publish
-
-
-
+  publish-gpr:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: https://npm.pkg.github.com/
+      - run: npm ci
+      - run: npm publish
+      - name: Install dependencies
+        run: npm install -f
+      - name: Publish to GitHub Packages
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
