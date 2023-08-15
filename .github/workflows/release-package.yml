@@ -3,7 +3,7 @@ name: Upload Vue.js Package
 on:
   push:
     branches:
-      - main  # แก้ไขชื่อ branch ตามที่คุณต้องการ
+      - dev  # แก้ไขชื่อ branch ตามที่คุณต้องการ
 
 jobs:
   upload:
