@@ -1,5 +1,9 @@
 name: CI
 
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: destinydraw-api-admin
+  ENVIRONMENT: destinydraw
 on:
   workflow_dispatch:
     inputs:
@@ -13,6 +17,7 @@ on:
         type: choice
         description: Make a choice
         options:
+        - ${{ env.ENVIRONMENT 
         - foo
         - bar
         - baz
